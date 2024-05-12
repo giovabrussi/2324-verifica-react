@@ -1,5 +1,5 @@
 services:
-  my_web_5b:
+  my_web:
     user: ${MY_UID}:${MY_GID}
     build:
       context: ./build
@@ -12,7 +12,7 @@ services:
     volumes:
       - "./php:/var/www/html"
 
-  my_mariadb_5b:
+  my_mariadb:
     user: ${MY_UID}:${MY_GID}
     build:
       context: ./build
@@ -27,14 +27,14 @@ services:
       - "./mysql:/var/lib/mysql"
       - "./build/init.sql:/docker-entrypoint-initdb.d/init.sql"
 
-  my_phpMyAdmin_5b:
+  my_phpMyAdmin:
     image: phpmyadmin
     ports:
       - 8081:80
     environment:
       - PMA_HOST=my_mariadb
 
-  my_node_5b:
+  my_node:
     user: ${MY_UID}:${MY_GID}
     build:
       context: ./build
