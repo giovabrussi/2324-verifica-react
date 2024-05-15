@@ -5,7 +5,7 @@ export default function Form({id, numero, tentativi}){
 
     const [loading, setLoading] = useState(false);
     const [show, setShow] = useState(true);
-
+    
     const [n, setN] = useState("");
     const [tent, setTent] = useState(tentativi);
     const [stato, setStato] = useState(-2);
@@ -33,8 +33,11 @@ export default function Form({id, numero, tentativi}){
         setLoading(true);
         const response = await fetch("http://localhost:8080/partita", {method: "POST"});
         const nuovoArray = await response.json();
+        setTent(nuovoArray.tentativi);
+        setStato(nuovoArray.risultato);
         setLoading(false);
-      }
+        setShow(true);
+    }
 
 
     return(
@@ -65,6 +68,9 @@ export default function Form({id, numero, tentativi}){
                                 <p>ID: {id}</p>
                                 <p>Inserisci un numero tra 1 e 100</p>
                                 <input type="text" placeholder="Inserisci il numero" value={n} onChange={controllaNumero}></input>
+                                <div>
+                                    <button onClick={invia}>Invia</button>
+                                </div>
                             </>
                         }
 
@@ -74,9 +80,7 @@ export default function Form({id, numero, tentativi}){
                     
                     
                 </div>
-                <div>
-                    <button onClick={invia}>Invia</button>
-                </div>
+                
             </div>
         </div>
     )
